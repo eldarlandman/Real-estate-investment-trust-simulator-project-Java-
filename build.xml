@@ -1,0 +1,41 @@
+<project name="Assignment3" basedir="." default="main">
+
+<property name="src.dir"     value="src"/>
+<property name="classes.dir" value="classes"/>
+<property name="jar.dir"     value="jar"/>
+<property name="main-class"  value="Board"/>
+
+<target name="clean">
+    <delete dir="${classes.dir}"/>
+    <delete dir="${jar.dir}"/>
+</target>
+
+<target name="compile">
+    <mkdir dir="build/classes"/>
+    <javac srcdir="src" destdir="build/classes" includeantruntime="false">
+      <compilerarg line="-proc:none"/>
+    </javac>
+</target>
+
+<target name="jar" depends="compile">
+    <mkdir dir="build/jar"/>
+    <jar destfile="build/jar/Ass3.jar" basedir="build/classes">
+        <manifest>
+            <attribute name="Main-Class" value="spl/main/Driver"/>
+        </manifest>
+    </jar>
+</target>
+
+<target name="run" depends="jar">
+
+	<java jar="build/jar/Ass3.jar" fork="true">
+	        <arg value="${arg0}"/>
+	        <arg value="${arg1}"/>
+	        <arg value="${arg2}"/>
+	        <arg value="${arg3}"/>
+	    </java>
+</target>
+
+<target name="main" depends="run"/>
+
+</project>
